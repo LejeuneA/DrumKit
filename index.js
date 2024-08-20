@@ -6,6 +6,7 @@ for (var i = 0; i < numberOfDrumButtons; i++) {
 
         var buttonInnerHTML = this.innerHTML;
         makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
 
         switch (buttonInnerHTML) {
             case "w":
@@ -43,20 +44,21 @@ for (var i = 0; i < numberOfDrumButtons; i++) {
                 audio.play();
                 break;
 
-            default: console.log (buttonInnerHTML);
+            default: console.log(buttonInnerHTML);
                 break;
         }
     });
 };
 
 
-// Detecting Keyboard Press
-document.addEventListener ("keydown", function (event) {
+// Detecting Keyboard Press (Callback function)
+document.addEventListener("keydown", function (event) {
     makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 
-function makeSound (key) {
+function makeSound(key) {
     switch (key) {
         case "w":
             var audio = new Audio("../Drum Kit Starting Files/sounds/tom-4.mp3");
@@ -93,7 +95,17 @@ function makeSound (key) {
             audio.play();
             break;
 
-        default: console.log (buttonInnerHTML);
+        default: console.log(buttonInnerHTML);
             break;
     }
+}
+
+
+// Adding Animation
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(function () {
+        activeButton.classList.remove("pressed");
+    }, 100);
 }
